@@ -2,7 +2,8 @@ const Koa = require('koa');
 const app = new Koa();
 
 const main = ctx => {
-  ctx.throw(500);
+  ctx.response.status = 404;
+  ctx.response.body = 'Page Not Found';
 };
 
 app.use(main);

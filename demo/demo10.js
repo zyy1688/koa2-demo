@@ -1,11 +1,26 @@
-const fs = require('fs.promised');
 const Koa = require('koa');
 const app = new Koa();
 
-const main = async function (ctx, next) {
-  ctx.response.type = 'html';
-  ctx.response.body = await fs.readFile('./demos/template.html', 'utf8');
-};
+const one = (ctx, next) => {
+    console.log('>> one');
+    next();
+    console.log('<< one');
+}
 
-app.use(main);
+const two = (ctx, next) => {
+    console.log('>> two');
+    next();
+    console.log('<< two');
+}
+
+const three = (ctx, next) => {
+    console.log('>> three');
+    next();
+    console.log('<< three');
+}
+
+app.use(one);
+app.use(two);
+app.use(three);
+
 app.listen(3000);

@@ -1,26 +1,15 @@
 const Koa = require('koa');
 const app = new Koa();
 
-const one = (ctx, next) => {
-  console.log('>> one');
-  next();
-  console.log('<< one');
+const logger = (ctx, next) => {
+    console.log(`${Date.now()} ${ctx.request.method} ${ctx.request.url}`);
+    next();
 }
 
-const two = (ctx, next) => {
-  console.log('>> two');
-  next();
-  console.log('<< two');
-}
+const main = ctx => {
+    ctx.response.body = 'Hello World';
+};
 
-const three = (ctx, next) => {
-  console.log('>> three');
-  next();
-  console.log('<< three');
-}
-
-app.use(one);
-app.use(two);
-app.use(three);
-
+app.use(logger);
+app.use(main);
 app.listen(3000);
